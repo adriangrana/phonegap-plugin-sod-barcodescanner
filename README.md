@@ -12,15 +12,15 @@ Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plug
 
 This requires phonegap 5.0+ ( current stable v3.0.0 )
 
-    phonegap plugin add phonegap-plugin-barcodescanner
+    phonegap plugin add phonegap-plugin-sodbarcodescanner
 
 Older versions of phonegap can still install via the __deprecated__ id ( stale v2.0.1 )
 
-    phonegap plugin add com.phonegap.plugins.barcodescanner
+    phonegap plugin add com.phonegap.plugins.sodbarcodescanner
 
 It is also possible to install via repo url directly ( unstable )
 
-    phonegap plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git
+    phonegap plugin add https://github.com/phonegap/phonegap-plugin-sodbarcodescanner.git
 
 ### Supported Platforms
 
@@ -50,7 +50,7 @@ When the system prompts the user to allow access, this string is displayed as pa
 To add this entry you can pass the following variable on plugin install.
 
 ```
-cordova plugin add phonegap-plugin-barcodescanner --variable CAMERA_USAGE_DESCRIPTION="To scan barcodes"
+cordova plugin add phonegap-plugin-sodbarcodescanner --variable CAMERA_USAGE_DESCRIPTION="To scan barcodes"
 ```
 
 If you are using Phonegap Build you can add this to your config.xml
@@ -150,7 +150,7 @@ Not by default, but supported if you pass in the "formats" option:
 
 A full example could be:
 ```js
-   cordova.plugins.barcodeScanner.scan(
+   cordova.plugins.sodbarcodescanner.scan(
       function (result) {
           alert("We got a barcode\n" +
                 "Result: " + result.text + "\n" +
@@ -189,7 +189,7 @@ Supported encoding types:
 ```
 A full example could be:
 
-   cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
+   cordova.plugins.sodbarcodescanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
             alert("encode success: " + success);
           }, function(fail) {
             alert("encoding failed: " + fail);
