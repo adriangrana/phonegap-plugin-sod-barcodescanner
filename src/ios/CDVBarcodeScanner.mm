@@ -1054,9 +1054,26 @@ parentViewController:(UIViewController*)parentViewController
       [items insertObject:torchButton atIndex:0];
     }
   }
+    
+    
+    
     NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"CDVBarcodeScanner" withExtension:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
-    NSString *imagePath = [bundle pathForResource:@"flash" ofType:@"png"];
+    
+    ///TEST
+    NSString *fla = [bundle pathForResource:@"flash64" ofType:@"png"];
+    UIImage *imgfla = [UIImage imageWithContentsOfFile:fla];
+    CGRect imgFlaRect = CGRectMake(26.0, 2.0,48,48);
+
+    // searchView.image = search1;
+    UIButton * flabtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [flabtn setBackgroundImage:imgfla forState:UIControlStateNormal];
+    [flabtn setFrame:imgFlaRect];
+    
+    
+    //////
+    
+    NSString *imagePath = [bundle pathForResource:@"flash64" ofType:@"png"];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
     
     UITapGestureRecognizer *singleFingerTap =
@@ -1112,16 +1129,20 @@ parentViewController:(UIViewController*)parentViewController
 
     
     //FINDER CONTENT SEARCH ICON
-    NSString *searchPath1 = [bundle pathForResource:@"search" ofType:@"png"];
+    NSString *searchPath1 = [bundle pathForResource:@"seg48" ofType:@"png"];
     UIImage *search1 = [UIImage imageWithContentsOfFile:searchPath1];
-    CGRect imgRect = CGRectMake(20.0, 2.0,24, 24);
-    UIImageView* searchView = [[UIImageView alloc] initWithFrame:imgRect];
-    searchView.image = search1;
+    CGRect imgRect = CGRectMake(26.0, 2.0,24,24);
+    UIImageView* searchView = [[UIImageView alloc] initWithImage:search1];
+   // searchView.image = search1;
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setBackgroundImage:search1 forState:UIControlStateNormal];
+    [btn setFrame:imgRect];
+    
+    
     [searchView setFrame:imgRect];
-    [finderView addSubview:searchView];
+    [finderView addSubview:btn];
     [finderView addSubview:skuButton];
-    
-    
+   
     UIBarButtonItem *textFieldItem = [[UIBarButtonItem alloc] initWithCustomView:skuButton];
     
     // DESCRIPTION LABEL
