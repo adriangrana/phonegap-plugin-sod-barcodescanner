@@ -1115,23 +1115,17 @@ parentViewController:(UIViewController*)parentViewController
     skuButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     skuButton.textAlignment = UITextAlignmentCenter;
     
-    UIColor *color = [UIColor darkGrayColor];
-    
-    NSMutableDictionary* font = [[NSMutableDictionary new] autorelease];
-    font[@"NSForegroundColorAttributeName"] = color;
-    font[@"NSFontAttributeName"] =  [UIFont fontWithName:@"Roboto-Bold" size:8.0];
-    
-
-    skuButton.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Buscar por SKU o codigo"
-                                    attributes:font
-     ];
-
+  
+    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithString:@"Buscar por SKU o codigo"];
+    NSDictionary* attributes = @{NSForegroundColorAttributeName:[UIColor lightGrayColor]};
+    [attributedString setAttributes:attributes range:NSMakeRange(0, [attributedString length])];
+    [skuButton setAttributedPlaceholder:attributedString];
+    [skuButton setFont:[UIFont systemFontOfSize:14]];
     
     //FINDER CONTENT SEARCH ICON
     NSString *searchPath1 = [bundle pathForResource:@"seg48" ofType:@"png"];
     UIImage *search1 = [UIImage imageWithContentsOfFile:searchPath1];
-    CGRect imgRect = CGRectMake(26.0, 2.0,24,24);
+    CGRect imgRect = CGRectMake(46.0, 2.0,24,24);
     UIImageView* searchView = [[UIImageView alloc] initWithImage:search1];
    // searchView.image = search1;
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
