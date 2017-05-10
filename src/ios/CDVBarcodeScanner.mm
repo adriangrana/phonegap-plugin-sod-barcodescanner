@@ -1073,7 +1073,7 @@ parentViewController:(UIViewController*)parentViewController
     
     //////
     
-    NSString *imagePath = [bundle pathForResource:@"flash64" ofType:@"png"];
+    NSString *imagePath = [bundle pathForResource:@"Flash@x2" ofType:@"png"];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
     
     UITapGestureRecognizer *singleFingerTap =
