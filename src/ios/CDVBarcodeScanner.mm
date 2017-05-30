@@ -960,6 +960,16 @@ parentViewController:(UIViewController*)parentViewController
     //Do stuff here...
 }
 //--------------------------------------------------------------------------
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 - (UIView*)buildOverlayView {
 
     if ( nil != self.alternateXib )
@@ -1089,10 +1099,14 @@ parentViewController:(UIViewController*)parentViewController
     torchView.image = image;
     [torchView setFrame:torhRect1];
     
-    NSString *imagePath1 = [bundle pathForResource:@"bk" ofType:@"png"];
+    NSString *imagePath1 = [bundle pathForResource:@"back-ar" ofType:@"png"];
+    CGRect torhRectback = CGRectMake(0, 0,24, 24);
+    
     UIImage *image1 = [UIImage imageWithContentsOfFile:imagePath1];
+    UIImage *img = [self imageWithImage:image1 scaledToSize:CGSizeMake(24, 24)];
+    
     UIBarButtonItem* backButton = [[[UIBarButtonItem alloc]
-                        initWithImage:image1
+                                    initWithImage:img
                         style:UIBarButtonItemStylePlain
                         target:(id)self
                         action:@selector(cancelButtonPressed:)
