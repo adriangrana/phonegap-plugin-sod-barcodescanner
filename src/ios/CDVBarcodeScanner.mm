@@ -109,6 +109,7 @@
 @property (nonatomic, retain) NSString*        alternateXib;
 @property (nonatomic)         BOOL             shutterPressed;
 @property (nonatomic, retain) IBOutlet UIView* overlayView;
+@property (nonatomic, retain) UIImageView*  imagetorch;
 // unsafe_unretained is equivalent to assign - used to prevent retain cycles in the property below
 @property (nonatomic, unsafe_unretained) id orientationDelegate;
 
@@ -865,6 +866,7 @@ parentViewController:(UIViewController*)parentViewController
     self.shutterPressed = NO;
     self.alternateXib = alternateXib;
     self.overlayView = nil;
+   
     return self;
 }
 
@@ -970,6 +972,7 @@ parentViewController:(UIViewController*)parentViewController
     UIGraphicsEndImageContext();
     return newImage;
 }
+
 - (UIView*)buildOverlayView {
 
     if ( nil != self.alternateXib )
@@ -1085,19 +1088,20 @@ parentViewController:(UIViewController*)parentViewController
     
     NSString *imagePath = [bundle pathForResource:@"Flash@x2" ofType:@"png"];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    
+     UIImage *imagetorh= [self imageWithImage:image scaledToSize:CGSizeMake(40, 40)];
     UITapGestureRecognizer *singleFingerTap =
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(handleSingleTap:)];
     
        CGRect torhRect1 = CGRectMake(-20, 0,40, 40);
-    
-    UIImageView* torchView = [[UIImageView alloc] initWithFrame:torhRect1];
-    [torchView addGestureRecognizer:singleFingerTap];
-    [torchView setUserInteractionEnabled:YES];
-    
-    torchView.image = image;
-    [torchView setFrame:torhRect1];
+    self.imagetorch = [[UIImageView alloc] initWithFrame:torhRect1];
+ //   UIImageView* torchView = [[UIImageView alloc] initWithFrame:torhRect1];
+    [self.imagetorch addGestureRecognizer:singleFingerTap];
+    [self.imagetorch setUserInteractionEnabled:YES];
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+
+     self.imagetorch.image = imagetorh;
+    [self.imagetorch setFrame:torhRect1];
     
     NSString *imagePath1 = [bundle pathForResource:@"back-ar" ofType:@"png"];
     CGRect torhRectback = CGRectMake(0, 0,24, 24);
@@ -1166,7 +1170,7 @@ parentViewController:(UIViewController*)parentViewController
     UIBarButtonItem *labelItem = [[UIBarButtonItem alloc] initWithCustomView:labelInfo];
     UIBarButtonItem *SearchItem = [[UIBarButtonItem alloc] initWithCustomView:finderView];
    
-    UIBarButtonItem *TorchItem = [[UIBarButtonItem alloc] initWithCustomView:torchView];
+    UIBarButtonItem *TorchItem = [[UIBarButtonItem alloc] initWithCustomView:self.imagetorch];
     
 
     //ITEMS
